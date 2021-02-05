@@ -14,7 +14,7 @@ interface TopLoggerTimeSlot {
   require_password: boolean
 }
 
-interface AvailableTimeSlot {
+export interface AvailableTimeSlot {
   id: number
   details: string | null
   numberOfSpots: number
