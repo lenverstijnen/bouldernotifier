@@ -1,0 +1,73 @@
+// 0 => full
+// 1 => 2 spots
+// 2 => 1 spot
+// 3 => 3 spots
+// 4 => full
+
+export const mockData = [
+  {
+    id: 173629,
+    reservation_area_id: 67,
+    start_at: "2021-02-02T07:00:00.000+01:00",
+    end_at: "2021-02-02T08:30:00.000+01:00",
+    checkin_end_at: "2021-02-02T07:10:00.000+01:00",
+    spots: 3,
+    spots_booked: 3,
+    details: null,
+    require_client_number: false,
+    live: true,
+    require_password: false,
+  },
+  {
+    id: 173630,
+    reservation_area_id: 67,
+    start_at: "2021-02-02T07:15:00.000+01:00",
+    end_at: "2021-02-02T08:45:00.000+01:00",
+    checkin_end_at: "2021-02-02T07:25:00.000+01:00",
+    spots: 3,
+    spots_booked: 1,
+    details: null,
+    require_client_number: false,
+    live: true,
+    require_password: false,
+  },
+  {
+    id: 173631,
+    reservation_area_id: 67,
+    start_at: "2021-02-02T07:30:00.000+01:00",
+    end_at: "2021-02-02T09:00:00.000+01:00",
+    checkin_end_at: "2021-02-02T07:40:00.000+01:00",
+    spots: 3,
+    spots_booked: 2,
+    details: null,
+    require_client_number: false,
+    live: true,
+    require_password: false,
+  },
+  {
+    id: 173632,
+    reservation_area_id: 67,
+    start_at: "2021-02-02T07:45:00.000+01:00",
+    end_at: "2021-02-02T09:15:00.000+01:00",
+    checkin_end_at: "2021-02-02T07:55:00.000+01:00",
+    spots: 3,
+    spots_booked: 0,
+    details: null,
+    require_client_number: false,
+    live: true,
+    require_password: false,
+  },
+  {
+    id: 173633,
+    reservation_area_id: 67,
+    start_at: "2021-02-02T08:00:00.000+01:00",
+    end_at: "2021-02-02T09:30:00.000+01:00",
+    checkin_end_at: "2021-02-02T08:10:00.000+01:00",
+    spots: 4,
+    spots_booked: 4,
+    details: null,
+    require_client_number: false,
+    live: true,
+    require_password: false,
+  },
+]
