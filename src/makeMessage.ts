@@ -13,9 +13,7 @@ const extractTimes = (availableSlots: AvailableTimeSlot[]) => {
 }
 
 export const makeMessage = (availableSlots: AvailableTimeSlot[]) => {
-  const moreThenOne = availableSlots.length > 1
-
-  return `Er ${moreThenOne ? "zijn" : "is"} ${availableSlots.length} ${
-    moreThenOne ? "plekken" : "plek"
-  } beschikbaar bij Energiehaven, namelijk om ${extractTimes(availableSlots)}.`
+  return `Er is plek bij Energiehaven, namelijk om ${extractTimes(
+    availableSlots
+  )}.`
 }

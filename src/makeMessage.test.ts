@@ -5,7 +5,7 @@ import { makeMessage } from "./makeMessage"
 
 it("Should return the correct message for 2 spots", () => {
   const message =
-    "Er zijn 2 plekken beschikbaar bij Energiehaven, namelijk om 07:30 (2 plekken) en om 08:15 (1 plek)."
+    "Er is plek bij Energiehaven, namelijk om 07:30 (2 plekken) en om 08:15 (1 plek)."
 
   const date = parseISO("2021-02-02T07:00:00.000+01:00")
   const slots = extractAvailableSlots(mockData, date)
@@ -15,8 +15,7 @@ it("Should return the correct message for 2 spots", () => {
 })
 
 it("Should return the correct message for 1 spot", () => {
-  const message =
-    "Er is 1 plek beschikbaar bij Energiehaven, namelijk om 07:30 (2 plekken)."
+  const message = "Er is plek bij Energiehaven, namelijk om 07:30 (2 plekken)."
 
   const date = parseISO("2021-02-02T07:00:00.000+01:00")
   const slots = extractAvailableSlots(mockData, date)
@@ -28,7 +27,7 @@ it("Should return the correct message for 1 spot", () => {
 
 it("Should return the correct message for 4 spots", () => {
   const message =
-    "Er zijn 4 plekken beschikbaar bij Energiehaven, namelijk om 18:15 (1 plek) en om 18:30 (1 plek) en om 19:00 (1 plek) en om 19:30 (3 plekken)."
+    "Er is plek bij Energiehaven, namelijk om 18:15 (1 plek) en om 18:30 (1 plek) en om 19:00 (1 plek) en om 19:30 (3 plekken)."
 
   const date = parseISO("2021-02-02T18:15:00.000+01:00")
   const slots = extractAvailableSlots(mockData, date)
