@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/lodash.isequal": "^4.5.5",
+    "@types/node-cron": "^2.0.3",
     "@types/node-telegram-bot-api": "^0.51.0",
     "axios": "^0.21.1",
     "date-fns": "^2.16.1",
