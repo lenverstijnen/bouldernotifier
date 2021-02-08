@@ -3,7 +3,11 @@ dotenv.config()
 import { sendMessage, notifyAdministrator } from "./sendMessage"
 import { extractAvailableSlots } from "./extractAvailableSlots"
 import { fetchData } from "./fetchData"
-import { filterUnnotifiedSlots, setNotify } from "./preventDoubleMessages"
+import {
+  filterUnnotifiedSlots,
+  setNotify,
+  cleanupNotifies,
+} from "./preventDoubleMessages"
 import { makeMessage } from "./makeMessage"
 import cron from "node-cron"
 import { format } from "date-fns"
@@ -23,6 +27,7 @@ cron.schedule("* * * * *", async () => {
   sendMessage(message)
 
   unnotifiedSlots.forEach((slot) => setNotify(slot))
+  cleanupNotifies(new Date())
 })
 
 const message = `App started (${format(new Date(), "dd-MM-yyyy HH:mm")})`

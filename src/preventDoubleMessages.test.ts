@@ -3,6 +3,7 @@ import {
   setNotify,
   deleteNotify,
   filterUnnotifiedSlots,
+  cleanupNotifies,
 } from "./preventDoubleMessages"
 
 const mockNotifies: AvailableTimeSlot[] = [
@@ -43,4 +44,17 @@ it("should match mocknotifies if notify one is deleted", () => {
   const result = filterUnnotifiedSlots(mockNotifies)
 
   expect(result).toEqual(mockNotifies)
+})
+
+it("should cleanup the notifies from the past", () => {
+  const now = new Date("2021-02-02T07:01:00.000+01:00")
+
+  setNotify(mockNotifies[0])
+  const result = filterUnnotifiedSlots(mockNotifies)
+  expect(result).toEqual([mockNotifies[1]])
+
+  cleanupNotifies(now)
+
+  const result2 = filterUnnotifiedSlots(mockNotifies)
+  expect(result2).toEqual(mockNotifies)
 })

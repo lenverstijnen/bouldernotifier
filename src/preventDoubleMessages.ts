@@ -1,3 +1,4 @@
+import { isAfter, parseISO } from "date-fns"
 import isEqual from "lodash.isequal"
 import { AvailableTimeSlot } from "./extractAvailableSlots"
 
@@ -12,6 +13,13 @@ export const deleteNotify = (slot: AvailableTimeSlot) => {
 }
 
 export const setNotify = (slot: AvailableTimeSlot) => notified.push(slot)
+
+export const cleanupNotifies = (now: Date) => {
+  const newNotified = notified.filter(
+    (slot) => !isAfter(now, parseISO(slot.startSlot))
+  )
+  notified = newNotified
+}
 
 export const filterUnnotifiedSlots = (slots: AvailableTimeSlot[] | null) => {
   if (!slots) return null
