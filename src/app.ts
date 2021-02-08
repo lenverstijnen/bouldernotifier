@@ -11,8 +11,11 @@ import {
 import { makeMessage } from "./makeMessage"
 import cron from "node-cron"
 import { format } from "date-fns"
+import express from "express"
+const app = express()
 
 process.on("uncaughtException", (error) => {
+  console.log(error)
   notifyAdministrator(`${error}`)
 })
 
@@ -33,6 +36,9 @@ cron.schedule("* * * * *", async () => {
   cleanupNotifies(new Date())
 })
 
-const message = `App started (${formatDate()})`
-notifyAdministrator(message)
-console.log(message)
+// Heroku needs to bind the port
+app.listen(process.env.PORT, () => {
+  const message = `App started (${formatDate()})`
+  notifyAdministrator(message)
+  console.log(message)
+})
