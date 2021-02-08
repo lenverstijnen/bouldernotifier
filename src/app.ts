@@ -16,8 +16,11 @@ process.on("uncaughtException", (error) => {
   notifyAdministrator(`${error}`)
 })
 
+const formattedDate = format(new Date(), "dd-MM-yyyy HH:mm")
+
 cron.schedule("* * * * *", async () => {
-  console.log("cron runs")
+  console.log(`cron runs (${formattedDate})`)
+
   const slots = await fetchData()
   const availableSlots = extractAvailableSlots(slots, new Date())
   const unnotifiedSlots = filterUnnotifiedSlots(availableSlots)
@@ -30,6 +33,6 @@ cron.schedule("* * * * *", async () => {
   cleanupNotifies(new Date())
 })
 
-const message = `App started (${format(new Date(), "dd-MM-yyyy HH:mm")})`
+const message = `App started (${formattedDate})`
 notifyAdministrator(message)
 console.log(message)
