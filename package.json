@@ -7,7 +7,7 @@
     "start": "node dist/app.js",
     "postinstall": "tsc",
     "test": "jest --watch",
-    "startServer": "ts-node-dev --respawn src/app --ignore-watch 'src/**/*.test.ts'"
+    "start:dev": "ts-node-dev --respawn src/app --ignore-watch 'src/**/*.test.ts'"
   },
   "engines": {
     "node": "12.16.1"

@@ -16,12 +16,12 @@ const app = express()
 
 process.on("uncaughtException", (error) => {
   console.log(error)
-  notifyAdministrator(`${error}`)
+  notifyAdministrator(`(uncaughtHandler):: ${error}`)
 })
 
 const formatDate = () => format(new Date(), "dd-MM-yyyy HH:mm")
 
-cron.schedule("* * * * *", async () => {
+cron.schedule("0-59/1 8-20 * * *", async () => {
   console.log(`cron runs (${formatDate()})`)
 
   const slots = await fetchData()
