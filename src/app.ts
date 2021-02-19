@@ -38,7 +38,7 @@ cron.schedule("0-59/1 8-20 * * *", async () => {
 
 // Heroku needs to bind the port
 app.listen(process.env.PORT, () => {
-  const message = `App started (${formatDate()})`
+  const message = `App (re)started (${formatDate()})`
   sendMessage(message)
   console.log(message)
 })

@@ -16,8 +16,8 @@ export const notifyAdministrator = (message: string) => {
 
 export const sendMessage = (message: string) => {
   bot.sendMessage(process.env.ID_LEN!, message)
-  bot.sendMessage(process.env.ID_SJOERD!, message)
   bot.sendMessage(process.env.ID_MARLOES!, message)
+  setTimeout(() => bot.sendMessage(process.env.ID_SJOERD!, message), 1000 * 60)
   console.log("Message sent: ", message)
 
   bot.on("error", (error) => {
