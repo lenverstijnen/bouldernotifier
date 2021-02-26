@@ -12,6 +12,7 @@ import { makeMessage } from "./makeMessage"
 import cron from "node-cron"
 import { format } from "date-fns"
 import express from "express"
+import { config } from "./config"
 const app = express()
 
 process.on("uncaughtException", (error) => {
@@ -21,24 +22,24 @@ process.on("uncaughtException", (error) => {
 
 const formatDate = () => format(new Date(), "dd-MM-yyyy HH:mm")
 
-cron.schedule("0-59/1 8-20 * * *", async () => {
-  console.log(`cron runs (${formatDate()})`)
+// cron.schedule("*/10 * * * * *", async () => {
+//   console.log(`cron runs (${formatDate()})`)
 
-  const slots = await fetchData()
-  const availableSlots = extractAvailableSlots(slots, new Date())
-  const unnotifiedSlots = filterUnnotifiedSlots(availableSlots)
-  if (!unnotifiedSlots) return
+//   const slots = await fetchData()
+//   const availableSlots = extractAvailableSlots(slots, config.dateToCheck)
+//   const unnotifiedSlots = filterUnnotifiedSlots(availableSlots)
+//   if (!unnotifiedSlots) return
 
-  const message = makeMessage(unnotifiedSlots)
-  sendMessage(message)
+//   const message = makeMessage(unnotifiedSlots)
+//   sendMessage(message)
 
-  unnotifiedSlots.forEach((slot) => setNotify(slot))
-  cleanupNotifies(new Date())
-})
+//   unnotifiedSlots.forEach((slot) => setNotify(slot))
+//   cleanupNotifies(new Date())
+// })
 
-// Heroku needs to bind the port
-app.listen(process.env.PORT, () => {
-  const message = `App (re)started (${formatDate()})`
-  sendMessage(message)
-  console.log(message)
-})
+// // Heroku needs to bind the port
+// app.listen(process.env.PORT, () => {
+//   const message = `App (re)started (${formatDate()})`
+//   sendMessage(message)
+//   console.log(message)
+// })

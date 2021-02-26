@@ -1,4 +1,5 @@
 import { differenceInMinutes, parseISO } from "date-fns"
+import { config } from "./config"
 
 interface TopLoggerTimeSlot {
   id: number
@@ -34,13 +35,13 @@ const checkSlot = (slot: TopLoggerTimeSlot) => {
   } else return null
 }
 
-const getSlotsWithin75MinutesFromNow = (
+const getSlotsWithinXMinutesFromNow = (
   slots: TopLoggerTimeSlot[],
   now: Date
 ) => {
   return slots.filter((slot) => {
     const diff = differenceInMinutes(parseISO(slot.start_at), now)
-    return diff <= 75 && !(diff < 0)
+    return diff <= config.minutes && !(diff < 0)
   })
 }
 
@@ -50,7 +51,7 @@ export const extractAvailableSlots = (
 ) => {
   const availableSlots: AvailableTimeSlot[] = []
 
-  const slotsInRange = getSlotsWithin75MinutesFromNow(slots, now)
+  const slotsInRange = getSlotsWithinXMinutesFromNow(slots, now)
   slotsInRange.forEach((slot) => {
     const available = checkSlot(slot)
     if (available) availableSlots.push(available)
