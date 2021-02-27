@@ -41,7 +41,7 @@ const getSlotsWithinXMinutesFromNow = (
 ) => {
   return slots.filter((slot) => {
     const diff = differenceInMinutes(parseISO(slot.start_at), now)
-    return diff <= config.minutes && !(diff < 0)
+    return diff <= config.minutesAhead && !(diff < 0)
   })
 }
 
