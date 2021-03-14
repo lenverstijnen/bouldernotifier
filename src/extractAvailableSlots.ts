@@ -1,6 +1,8 @@
 import { differenceInMinutes, parseISO } from "date-fns"
 import { config } from "./config"
 
+config.minutesAhead = 75
+
 interface TopLoggerTimeSlot {
   id: number
   reservation_area_id: number
