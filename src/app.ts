@@ -5,8 +5,8 @@ import { extractAvailableSlots } from "./extractAvailableSlots"
 import { fetchData } from "./fetchData"
 import {
   filterUnnotifiedSlots,
-  setNotify,
-  cleanupNotifies,
+  setNotifies,
+  cleanupExpiredNotifies,
 } from "./preventDoubleMessages"
 import { makeMessage } from "./makeMessage"
 import cron from "node-cron"
@@ -20,10 +20,13 @@ process.on("uncaughtException", (error) => {
   notifyAdministrator(`(uncaughtHandler):: ${error}`)
 })
 
-const formatDate = () => format(new Date(), "dd-MM-yyyy HH:mm")
+const cronLogMessage = () =>
+  `Checking available spots on (${config.dateToCheck}, ${
+    config.minutesInAdvance / 60
+  } hours ahead)`
 
 cron.schedule("*/10 * * * * *", async () => {
-  console.log(`cron runs (${formatDate()})`)
+  console.log(cronLogMessage())
 
   const slots = await fetchData()
   const availableSlots = extractAvailableSlots(slots, config.dateToCheck)
@@ -33,13 +36,15 @@ cron.schedule("*/10 * * * * *", async () => {
   const message = makeMessage(unnotifiedSlots)
   sendMessage(message)
 
-  unnotifiedSlots.forEach((slot) => setNotify(slot))
-  cleanupNotifies(new Date())
+  setNotifies(unnotifiedSlots)
+  cleanupExpiredNotifies()
 })
 
-// Heroku needs to bind the port
+// Express is necessary for heroku to bind the port.
+const formattedDate = () => format(new Date(), "dd-MM-yyyy HH:mm")
+
 app.listen(process.env.PORT, () => {
-  const message = `App (re)started (${formatDate()})`
+  const message = `App (re)started (${formattedDate()})`
   sendMessage(message)
   console.log(message)
 })

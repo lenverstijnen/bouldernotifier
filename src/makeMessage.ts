@@ -1,5 +1,5 @@
 import { format, isToday, parseISO } from "date-fns"
-import { AvailableTimeSlot } from "./extractAvailableSlots"
+import { IAvailableSlot } from "./extractAvailableSlots"
 import { config } from "./config"
 import { nl } from "date-fns/locale"
 
@@ -8,7 +8,7 @@ const checkedDay = () =>
     ? "vandaag"
     : format(config.dateToCheck, "eeee", { locale: nl })
 
-const extractTimes = (availableSlots: AvailableTimeSlot[]) => {
+const extractTimes = (availableSlots: IAvailableSlot[]) => {
   return availableSlots
     .map(
       (slot) =>
@@ -19,7 +19,7 @@ const extractTimes = (availableSlots: AvailableTimeSlot[]) => {
     .join(" en om ")
 }
 
-export const makeMessage = (availableSlots: AvailableTimeSlot[]) => {
+export const makeMessage = (availableSlots: IAvailableSlot[]) => {
   return `Er is ${checkedDay()} plek bij Energiehaven, namelijk om ${extractTimes(
     availableSlots
   )}.`

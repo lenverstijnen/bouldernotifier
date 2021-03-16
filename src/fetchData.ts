@@ -12,6 +12,6 @@ export const fetchData = async () => {
     return data
   } catch (error) {
     console.log(error)
-    notifyAdministrator(`(fetchHandler):: ${error}`)
+    notifyAdministrator(`(Error on fetch): ${error}`)
   }
 }

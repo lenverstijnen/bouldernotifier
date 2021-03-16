@@ -1,9 +1,6 @@
 import { differenceInMinutes, parseISO } from "date-fns"
 import { config } from "./config"
-
-config.minutesAhead = 75
-
-interface TopLoggerTimeSlot {
+interface ITimeSlot {
   id: number
   reservation_area_id: number
   start_at: string
@@ -17,17 +14,19 @@ interface TopLoggerTimeSlot {
   require_password: boolean
 }
 
-export interface AvailableTimeSlot {
+export interface IAvailableSlot {
   id: number
   details: string | null
   numberOfSpots: number
   startSlot: string
 }
 
-const checkSlot = (slot: TopLoggerTimeSlot) => {
+const checkSlot = (slot: ITimeSlot) => {
   const { spots_booked, spots, start_at, details, id } = slot
 
-  if (spots_booked < spots) {
+  const spotsAvailable = spots_booked < spots
+
+  if (spotsAvailable) {
     return {
       id,
       details,
@@ -37,23 +36,17 @@ const checkSlot = (slot: TopLoggerTimeSlot) => {
   } else return null
 }
 
-const getSlotsWithinXMinutesFromNow = (
-  slots: TopLoggerTimeSlot[],
-  now: Date
-) => {
+const getSlotsWithinXMinutesFromDate = (slots: ITimeSlot[], date: Date) => {
   return slots.filter((slot) => {
-    const diff = differenceInMinutes(parseISO(slot.start_at), now)
-    return diff <= config.minutesAhead && !(diff < 0)
+    const diff = differenceInMinutes(parseISO(slot.start_at), date)
+    return diff <= config.minutesInAdvance && !(diff < 0)
   })
 }
 
-export const extractAvailableSlots = (
-  slots: TopLoggerTimeSlot[],
-  now: Date
-) => {
-  const availableSlots: AvailableTimeSlot[] = []
+export const extractAvailableSlots = (slots: ITimeSlot[], now: Date) => {
+  const availableSlots: IAvailableSlot[] = []
 
-  const slotsInRange = getSlotsWithinXMinutesFromNow(slots, now)
+  const slotsInRange = getSlotsWithinXMinutesFromDate(slots, now)
   slotsInRange.forEach((slot) => {
     const available = checkSlot(slot)
     if (available) availableSlots.push(available)

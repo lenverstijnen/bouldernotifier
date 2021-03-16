@@ -1,27 +1,30 @@
+jest.mock("./config.ts")
 import { isAfter, parseISO } from "date-fns"
 import isEqual from "lodash.isequal"
-import { AvailableTimeSlot } from "./extractAvailableSlots"
+import { config } from "./config"
+import { IAvailableSlot } from "./extractAvailableSlots"
 
-let notified: AvailableTimeSlot[] = []
+let notified: IAvailableSlot[] = []
 
-const isNotified = (slot: AvailableTimeSlot) =>
+const isNotified = (slot: IAvailableSlot) =>
   notified.some((notify) => isEqual(notify, slot))
 
-export const deleteNotify = (slot: AvailableTimeSlot) => {
+export const deleteNotify = (slot: IAvailableSlot) => {
   const newNotified = notified.filter((notify) => !isEqual(notify, slot))
   notified = newNotified
 }
 
-export const setNotify = (slot: AvailableTimeSlot) => notified.push(slot)
+export const setNotifies = (slots: IAvailableSlot[]) =>
+  slots.forEach((slot) => notified.push(slot))
 
-export const cleanupNotifies = (now: Date) => {
+export const cleanupExpiredNotifies = () => {
   const newNotified = notified.filter(
-    (slot) => !isAfter(now, parseISO(slot.startSlot))
+    (slot) => !isAfter(config.dateToCheck, parseISO(slot.startSlot))
   )
   notified = newNotified
 }
 
-export const filterUnnotifiedSlots = (slots: AvailableTimeSlot[] | null) => {
+export const filterUnnotifiedSlots = (slots: IAvailableSlot[] | null) => {
   if (!slots) return null
   const filtered = slots.filter((slot) => !isNotified(slot))
   return filtered.length ? filtered : null
