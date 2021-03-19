@@ -32,15 +32,15 @@ it("Should return the correct message for 1 spot", () => {
   expect(result).toBe(message)
 })
 
-// it("Should return the correct message for 4 spots", () => {
-//   config.dateToCheck = new Date("2021-03-17")
+it("Should return the correct message for 4 spots", () => {
+  config.dateToCheck = new Date("2021-03-17")
 
-//   const message =
-//     "Er is woensdag plek bij Energiehaven, namelijk om 18:15 (1 plek) en om 18:30 (1 plek) en om 19:00 (1 plek) en om 19:30 (3 plekken)."
+  const message =
+    "Er is woensdag plek bij Energiehaven, namelijk om 18:15 (1 plek) en om 18:30 (1 plek) en om 19:00 (1 plek) en om 19:30 (3 plekken)."
 
-//   const date = parseISO("2021-02-02T18:15:00.000+01:00")
-//   const slots = extractAvailableSlots(mockData, date)
-//   const result = makeMessage(slots!)
+  const date = parseISO("2021-02-02T18:15:00.000+01:00")
+  const slots = extractAvailableSlots(mockData, date)
+  const result = makeMessage(slots!)
 
-//   expect(result).toBe(message)
-// })
+  expect(result).toBe(message)
+})

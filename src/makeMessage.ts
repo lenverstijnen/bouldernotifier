@@ -8,7 +8,7 @@ const checkedDay = () =>
     ? "vandaag"
     : format(config.dateToCheck, "eeee", { locale: nl })
 
-const extractTimes = (availableSlots: IAvailableSlot[]) => {
+const convertSlotsToString = (availableSlots: IAvailableSlot[]) => {
   return availableSlots
     .map(
       (slot) =>
@@ -20,7 +20,7 @@ const extractTimes = (availableSlots: IAvailableSlot[]) => {
 }
 
 export const makeMessage = (availableSlots: IAvailableSlot[]) => {
-  return `Er is ${checkedDay()} plek bij Energiehaven, namelijk om ${extractTimes(
+  return `Er is ${checkedDay()} plek bij Energiehaven, namelijk om ${convertSlotsToString(
     availableSlots
   )}.`
 }
