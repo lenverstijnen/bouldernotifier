@@ -1,19 +1,19 @@
 import { isAfter, parseISO } from "date-fns"
 import isEqual from "lodash.isequal"
 import { config } from "./config"
-import { IAvailableSlot } from "./extractAvailableSlots"
+import { ITimeslot } from "./convertData"
 
-let notified: IAvailableSlot[] = []
+let notified: ITimeslot[] = []
 
-const isNotified = (slot: IAvailableSlot) =>
+const isNotified = (slot: ITimeslot) =>
   notified.some((notify) => isEqual(notify, slot))
 
-export const deleteNotify = (slot: IAvailableSlot) => {
+export const deleteNotify = (slot: ITimeslot) => {
   const newNotified = notified.filter((notify) => !isEqual(notify, slot))
   notified = newNotified
 }
 
-export const setNotifies = (slots: IAvailableSlot[]) =>
+export const setNotifies = (slots: ITimeslot[]) =>
   slots.forEach((slot) => notified.push(slot))
 
 export const cleanupExpiredNotifies = () => {
@@ -23,7 +23,7 @@ export const cleanupExpiredNotifies = () => {
   notified = newNotified
 }
 
-export const filterUnnotifiedSlots = (slots: IAvailableSlot[] | null) => {
+export const filterUnnotifiedSlots = (slots: ITimeslot[] | null) => {
   if (!slots) return null
   const filtered = slots.filter((slot) => !isNotified(slot))
   return filtered.length ? filtered : null
