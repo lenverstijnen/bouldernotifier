@@ -20,10 +20,14 @@ process.on("uncaughtException", (error) => {
   notifyAdministrator(`(uncaughtHandler):: ${error}`)
 })
 
+const formatDate = (date: Date) => format(date, "dd-MM-yyyy HH:mm")
+
+const minutesToHours = (minutes: number) => minutes / 60
+
 const cronLogMessage = () =>
-  `Checking available spots on (${config.dateToCheck}, ${
-    config.minutesInAdvance / 60
-  } hours ahead)`
+  `Checking available spots for (${formatDate(
+    config.dateToCheck
+  )}, ${minutesToHours(config.minutesInAdvance)} hours in advance)`
 
 cron.schedule("*/10 * * * * *", async () => {
   console.log(cronLogMessage())
@@ -41,10 +45,9 @@ cron.schedule("*/10 * * * * *", async () => {
 })
 
 // Express is necessary for heroku to bind the port.
-const formattedDate = () => format(new Date(), "dd-MM-yyyy HH:mm")
 
 app.listen(process.env.PORT, () => {
-  const message = `App (re)started (${formattedDate()})`
+  const message = `App (re)started (${formatDate(new Date())})`
   sendMessage(message)
   console.log(message)
 })

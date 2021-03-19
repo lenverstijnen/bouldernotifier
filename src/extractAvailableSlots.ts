@@ -21,7 +21,7 @@ export interface IAvailableSlot {
   startSlot: string
 }
 
-const checkSlot = (slot: ITimeSlot) => {
+const isAvailable = (slot: ITimeSlot) => {
   const { spots_booked, spots, start_at, details, id } = slot
 
   const spotsAvailable = spots_booked < spots
@@ -46,9 +46,9 @@ const getSlotsWithinXMinutesFromDate = (slots: ITimeSlot[], date: Date) => {
 export const extractAvailableSlots = (slots: ITimeSlot[], now: Date) => {
   const availableSlots: IAvailableSlot[] = []
 
-  const slotsInRange = getSlotsWithinXMinutesFromDate(slots, now)
-  slotsInRange.forEach((slot) => {
-    const available = checkSlot(slot)
+  const slotsToCheck = getSlotsWithinXMinutesFromDate(slots, now)
+  slotsToCheck.forEach((slot) => {
+    const available = isAvailable(slot)
     if (available) availableSlots.push(available)
     else return
   })
