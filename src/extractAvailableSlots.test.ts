@@ -2,11 +2,11 @@ jest.mock("./config.ts")
 
 import { parseISO } from "date-fns"
 import { extractAvailableSlots } from "./extractAvailableSlots"
-import { mockData } from "./__mocks__/mockData"
+import { mockConvertedData } from "./__mocks__/mockConvertedData"
 
 it("Should return slot 173631 and 173634 if dateTime is 2021-02-02T07:00:00.000+01:00", () => {
   const date = parseISO("2021-02-02T07:00:00.000+01:00")
-  const result = extractAvailableSlots(mockData, date)
+  const result = extractAvailableSlots(mockConvertedData, date)
 
   expect(result?.length).toBe(2)
   expect(result![0].id).toBe(173631)
@@ -15,7 +15,7 @@ it("Should return slot 173631 and 173634 if dateTime is 2021-02-02T07:00:00.000+
 
 it("Should return slot 174043 and 174044 and 174046 and 174048 if dateTime is 2021-02-02T18:15:00.000+01:00", () => {
   const date = parseISO("2021-02-02T18:15:00.000+01:00")
-  const result = extractAvailableSlots(mockData, date)
+  const result = extractAvailableSlots(mockConvertedData, date)
 
   expect(result?.length).toBe(4)
   expect(result![0].id).toBe(174043)
@@ -26,7 +26,7 @@ it("Should return slot 174043 and 174044 and 174046 and 174048 if dateTime is 20
 
 it("Should return null if dateTime is 2021-02-02T16:45:00.000+01:00", () => {
   const date = parseISO("2021-02-02T16:45:00.000+01:00")
-  const result = extractAvailableSlots(mockData, date)
+  const result = extractAvailableSlots(mockConvertedData, date)
 
   expect(result).toBeNull()
 })
