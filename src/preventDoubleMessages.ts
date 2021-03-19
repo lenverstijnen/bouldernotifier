@@ -1,4 +1,3 @@
-jest.mock("./config.ts")
 import { isAfter, parseISO } from "date-fns"
 import isEqual from "lodash.isequal"
 import { config } from "./config"
