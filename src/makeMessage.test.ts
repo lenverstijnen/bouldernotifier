@@ -5,6 +5,9 @@ import { extractAvailableSlots } from "./extractAvailableSlots"
 import { mockConvertedData } from "./__mocks__/mockConvertedData"
 import { makeMessage } from "./makeMessage"
 import { config } from "./config"
+import { resetConfig } from "./__mocks__/config"
+
+afterEach(resetConfig)
 
 it("Should return the correct message for 2 spots", () => {
   config.dateToCheck = new Date()

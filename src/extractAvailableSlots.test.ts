@@ -2,7 +2,10 @@ jest.mock("./config.ts")
 
 import { parseISO } from "date-fns"
 import { extractAvailableSlots } from "./extractAvailableSlots"
+import { resetConfig } from "./__mocks__/config"
 import { mockConvertedData } from "./__mocks__/mockConvertedData"
+
+afterEach(resetConfig)
 
 it("Should return slot 173631 and 173634 if dateTime is 2021-02-02T07:00:00.000+01:00", () => {
   const date = parseISO("2021-02-02T07:00:00.000+01:00")

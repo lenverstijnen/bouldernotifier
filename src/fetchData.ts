@@ -2,6 +2,7 @@ import axios from "axios"
 import { format } from "date-fns"
 import { notifyAdministrator } from "./sendMessage"
 import { config } from "./config"
+import { convertData } from "./convertData"
 
 export const fetchData = async () => {
   const date = format(config.dateToCheck, "yyyy-MM-dd")
@@ -9,7 +10,7 @@ export const fetchData = async () => {
 
   try {
     const { data } = await axios.get(url)
-    return data
+    return convertData(data)
   } catch (error) {
     console.log(error)
     notifyAdministrator(`(Error on fetch): ${error}`)

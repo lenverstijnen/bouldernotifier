@@ -1,5 +1,3 @@
-import { mockData } from "./__mocks__/mockData"
-
 interface IToploggerTimeSlot {
   id: number
   reservation_area_id: number
@@ -13,7 +11,6 @@ interface IToploggerTimeSlot {
   live: boolean
   require_password: boolean
 }
-
 export interface ITimeslot {
   id: number
   details: string | null
